@@ -109,6 +109,8 @@ struct BookController: RouteCollection {
 			}
 	}
 
+	// MARK: - Delete
+	
 	func delete(req: Request) throws -> EventLoopFuture<HTTPStatus> {
 		guard let id = req.parameters.get("id", as: UUID.self) else {
 			throw Abort(.badRequest)
