@@ -7,7 +7,7 @@ struct BookController: RouteCollection {
 	
 	func boot(routes: RoutesBuilder) throws {
 		let protected = routes.grouped(UserAuthenticator())
-			.grouped(Token.Input.guardMiddleware())
+			.grouped(UserSession.guardMiddleware())
 		let books = protected.grouped("books")
 		books.post(use: create)
 		books.get(use: readAll)
@@ -19,6 +19,12 @@ struct BookController: RouteCollection {
 	// MARK: - Helper Functions
 	
 	func getOwnerId(req: Request) throws -> UUID {
+		
+		let user = try req.auth.require(UserSession.self)
+		print("authenticated User: \(user)")
+		
+//		let user = try req.auth.require(TestUser.self)
+		
 		guard let ownerId = UUID(uuidString: "13B5C858-0817-445D-A3B8-7EC7B00BB0CC") else {
 			throw Abort(.badRequest)
 		}
