@@ -18,6 +18,7 @@ struct UserController: RouteCollection {
 						email: input.email,
 						password: input.password
 		)
+		user.password = try Bcrypt.hash(user.password)
 		return user.save(on: req.db).map {
 			return User.Output(
 				name: user.name,

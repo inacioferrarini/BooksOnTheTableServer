@@ -14,11 +14,22 @@ struct BookController: RouteCollection {
 		books.delete(":id", use: delete)
 	}
 
+	// MARK: - Helper Functions
+	
+	func getOwnerId(req: Request) throws -> UUID {
+		guard let ownerId = UUID(uuidString: "6F2FE70A-9803-44B1-9766-6115370FBFC5") else {
+			throw Abort(.badRequest)
+		}
+		return ownerId
+	}
+	
 	// MARK: - Create
 	
 	func create(req: Request) throws -> EventLoopFuture<Book.Output> {
+		let ownerId = try getOwnerId(req: req)
 		let input = try req.content.decode(Book.Input.self)
-		let book = Book(title: input.title,
+		let book = Book(ownerId: ownerId,
+						title: input.title,
 						authorName: input.authorName,
 						genre: input.genre,
 						status: input.status

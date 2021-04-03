@@ -20,6 +20,7 @@ final class User: Model, Content {
 	@Field(key: "name") var name: String
 	@Field(key: "email") var email: String
 	@Field(key: "password") var password: String
+	@Children(for: \.$owner) var books: [Book]
 	
 	init() { }
 	

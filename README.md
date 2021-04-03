@@ -63,6 +63,8 @@ date: Sat, 03 Apr 2021 11:42:38 GMT
 
 Creates a new book.
 
+Although the password is provided plain, it will be encrypted upon saving.
+
 ### Parameters
 
 None.

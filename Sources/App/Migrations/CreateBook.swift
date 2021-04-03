@@ -9,6 +9,7 @@ struct CreateBook: Migration {
 			.field("author_name", .string, .required)
 			.field("genre", .string, .required)
 			.field("status", .string, .required)
+			.field("user_id", .uuid, .required, .references("users", "id"))
 			.create()
 	}
 

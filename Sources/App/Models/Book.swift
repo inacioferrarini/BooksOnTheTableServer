@@ -34,11 +34,13 @@ final class Book: Model, Content {
 	@Field(key: "author_name") var authorName: String
 	@Field(key: "genre") var genre: Genre
 	@Field(key: "status") var status: Status
+	@Parent(key: "user_id") var owner: User
 	
 	init() { }
 
-	init(id: UUID? = nil, title: String, authorName: String, genre: Genre, status: Status) {
+	init(id: UUID? = nil, ownerId: UUID, title: String, authorName: String, genre: Genre, status: Status) {
 		self.id = id
+		self.$owner.id = ownerId
 		self.title = title
 		self.authorName = authorName
 		self.genre = genre
