@@ -1,5 +1,6 @@
 import Fluent
 import Vapor
+import Crypto
 
 struct UserController: RouteCollection {
 
@@ -18,7 +19,7 @@ struct UserController: RouteCollection {
 						email: input.email,
 						password: input.password
 		)
-		user.password = try Bcrypt.hash(user.password)
+		user.password = try Bcrypt.hash(user.password, cost: 4)
 		return user.save(on: req.db).map {
 			return User.Output(
 				name: user.name,

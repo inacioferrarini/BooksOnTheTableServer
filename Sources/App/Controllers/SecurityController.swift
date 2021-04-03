@@ -1,6 +1,6 @@
 import Fluent
 import Vapor
-//import Random
+import Crypto
 
 struct SecurityController: RouteCollection {
 
@@ -19,37 +19,30 @@ struct SecurityController: RouteCollection {
 			.filter(\.$email == input.email)
 			.first()
 			.unwrap(or: Abort(.notFound))
-			.map { user -> Token.Output in
-				//let hasher = try req.make(BCryptDigest.self)
-				//if try hasher.verify(user.password, created: existingUser.password) {
-				//	let tokenString = try URandom().generateData(count: 32).base64EncodedString()
-				//	let token = try Token(token: tokenString, userId: existingUser.requireID())
-				//	return token.save(on: req)
-				//} else {
-				//	throw Abort(HTTPStatus.unauthorized)
-				//}
-				return Token.Output(
-					token: "new Token Value",
-					createdAt: Date(),
-					expiresAt: Date()
-				)
+			.mapThrowing { user -> Token.Output in
+				if try Bcrypt.verify(input.password, created: user.password), let userId = user.id {
+					let tokenString = UUID().uuidString //.replacingCharacters(in: "-", with: "")
+					print("tokenString: \(tokenString)")
+					let createdAt = Date()
+					let expiresAt = Date().advanced(by: 15*24*60*60*1000)
+					let token = Token(
+						userId: userId,
+						token: tokenString,
+						createdAt: createdAt,
+						expiresAt: expiresAt
+					)
+
+					// try token.save(on: req.db)
+					
+					return Token.Output(
+						token: tokenString,
+						createdAt: createdAt,
+						expiresAt: expiresAt
+					)
+				} else {
+					throw Abort(HTTPStatus.unauthorized)
+				}
 			}
-				
-//		return try req.content.decode(User.Input.self).flatMap { user in
-//			return User.query(on: req.db).filter(\.email == user.email).first().flatMap { fetchedUser in
-//				guard let existingUser = fetchedUser else {
-//					throw Abort(HTTPStatus.notFound)
-//				}
-//				let hasher = try req.make(BCryptDigest.self)
-//				if try hasher.verify(user.password, created: existingUser.password) {
-//					let tokenString = try URandom().generateData(count: 32).base64EncodedString()
-//					let token = try Token(token: tokenString, userId: existingUser.requireID())
-//					return token.save(on: req)
-//				} else {
-//					throw Abort(HTTPStatus.unauthorized)
-//				}
-//			}
-//		}
 	}
 	
 }
