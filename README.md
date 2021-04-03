@@ -166,7 +166,7 @@ Updates a book.
 ```shell
 curl -i -X PUT "http://127.0.0.1:8080/books/<id>" \
         -H "Content-Type: application/json" \
-        -d '{ \
+        -d '{
         	"title" : "Book Title",
         	"author_name" : "Author Name",
         	"genre" : "Horror",

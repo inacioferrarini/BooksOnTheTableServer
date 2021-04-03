@@ -50,7 +50,10 @@ struct BookController: RouteCollection {
 	// MARK: - Read
 
 	func readAll(req: Request) throws -> EventLoopFuture<Page<Book.Output>> {
-		return Book.query(on: req.db).paginate(for: req).map { page in
+		let ownerId = try getOwnerId(req: req)
+		return Book.query(on: req.db)
+			.filter(\.$owner.$id == ownerId)
+			.paginate(for: req).map { page in
 			page.map { book -> Book.Output in
 				// TODO: Handle nil
 				let uuid = book.id?.uuidString ?? ""
@@ -69,8 +72,10 @@ struct BookController: RouteCollection {
 		guard let id = req.parameters.get("id", as: UUID.self) else {
 			throw Abort(.badRequest)
 		}
+		let ownerId = try getOwnerId(req: req)
 		return Book.find(id, on: req.db)
 			.unwrap(or: Abort(.notFound))
+			.guard({ return $0.$owner.id == ownerId }, else: Abort(.notFound))
 			.map { book -> Book.Output in
 				// TODO: Handle nil
 				let uuid = book.id?.uuidString ?? ""
@@ -90,9 +95,11 @@ struct BookController: RouteCollection {
 		guard let id = req.parameters.get("id", as: UUID.self) else {
 			throw Abort(.badRequest)
 		}
+		let ownerId = try getOwnerId(req: req)
 		let input = try req.content.decode(Book.Input.self)
 		return Book.find(id, on: req.db)
 			.unwrap(or: Abort(.notFound))
+			.guard({ return $0.$owner.id == ownerId }, else: Abort(.notFound))
 			.flatMap { book in
 				book.title = input.title
 				book.authorName = input.authorName
@@ -119,8 +126,10 @@ struct BookController: RouteCollection {
 		guard let id = req.parameters.get("id", as: UUID.self) else {
 			throw Abort(.badRequest)
 		}
+		let ownerId = try getOwnerId(req: req)
 		return Book.find(id, on: req.db)
 			.unwrap(or: Abort(.notFound))
+			.guard({ return $0.$owner.id == ownerId }, else: Abort(.notFound))
 			.flatMap { $0.delete(on: req.db) }
 			.map { .noContent }
 	}
