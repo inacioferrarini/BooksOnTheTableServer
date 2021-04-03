@@ -8,13 +8,13 @@ Data is persistend using a SQLite database through **Fluent ORM**.
 
 ## Como utilizar o backend
 
-Para preparar a base de dados:
+To prepare the database:
 
 ```swift
 swift run Run migrate
 ```
 
-Para usar o backend, execute
+To start the backend:
 
 ```swift
 swift run Run
