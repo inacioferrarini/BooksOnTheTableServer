@@ -32,13 +32,14 @@ struct SecurityController: RouteCollection {
 						expiresAt: expiresAt
 					)
 
-					// try token.save(on: req.db)
+					_ = token.save(on: req.db)
 					
 					return Token.Output(
 						token: tokenString,
 						createdAt: createdAt,
 						expiresAt: expiresAt
 					)
+					
 				} else {
 					throw Abort(HTTPStatus.unauthorized)
 				}

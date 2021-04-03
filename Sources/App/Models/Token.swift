@@ -3,10 +3,16 @@ import Fluent
 
 final class Token: Model {
 
-	struct Input: Content {
+	struct Input: Content, Authenticatable {
+		var name: String
 		let email: String
 		let password: String
 	}
+	
+//	struct Input: Content {
+//		let email: String
+//		let password: String
+//	}
 	
 	struct Output: Content {
 		let token: String
@@ -33,3 +39,4 @@ final class Token: Model {
 	}
 
 }
+

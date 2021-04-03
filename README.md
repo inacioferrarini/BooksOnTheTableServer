@@ -37,8 +37,8 @@ curl -i -X POST "http://127.0.0.1:8080/users" \
         -H "Content-Type: application/json" \
         -d '{
         	"name" : "User Name",
-        	"email" : "email@provider.com.br",
-	     	"password" : "123123@11acc"
+        	"email" : "user@email.com",
+	     	"password" : "1234"
 	     }'
 ```
 
@@ -81,15 +81,19 @@ None.
 
 ### Request
 
+Authorization: Bearer ...
+
+
 ```shell
 curl -i -X POST "http://127.0.0.1:8080/books" \
-        -H "Content-Type: application/json" \
-        -d '{
-        	"title" : "Book Title",
-        	"author_name" : "Author Name",
-        	"genre" : "Horror",
-	     	"status" : "Reading"
-	     }'
+	-H "Content-Type: application/json" \
+	-H "Authorization: Bearer {token}" \
+    -d '{
+    	"title" : "Book Title",
+    	"author_name" : "Author Name",
+    	"genre" : "Horror",
+     	"status" : "Reading"
+     }'
 ```
 
 ### Success Response
@@ -121,7 +125,8 @@ Fetchs all books. Supports pagination.
 
 ```shell
 curl -i -X GET "http://127.0.0.1:8080/books?page=<page number>&per=<records per page>" \
-	-H "Content-Type: application/json"
+	-H "Content-Type: application/json" \
+	-H "Authorization: Bearer {token}"
 ```
 
 ### Success Response
@@ -149,6 +154,7 @@ None.
 ```shell
 curl -i -X GET "http://127.0.0.1:8080/books/<id>" \
 	-H "Content-Type: application/json"
+	-H "Authorization: Bearer {token}"
 ```
 
 ### Success Response
@@ -175,7 +181,8 @@ Updates a book.
 
 ```shell
 curl -i -X PUT "http://127.0.0.1:8080/books/<id>" \
-        -H "Content-Type: application/json" \
+	-H "Content-Type: application/json" \
+	-H "Authorization: Bearer {token}"        
         -d '{
         	"title" : "Book Title",
         	"author_name" : "Author Name",
@@ -207,7 +214,8 @@ Deletes a book.
 ### Request
 
 ```shell
-curl -i -X DELETE "http://127.0.0.1:8080/books/<id>"
+curl -i -X DELETE "http://127.0.0.1:8080/books/<id>" \
+	-H "Authorization: Bearer {token}"
 ```
 ### Success Response
 

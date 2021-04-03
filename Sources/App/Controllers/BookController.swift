@@ -6,7 +6,9 @@ struct BookController: RouteCollection {
 	// MARK: - Setup
 	
 	func boot(routes: RoutesBuilder) throws {
-		let books = routes.grouped("books")
+		let protected = routes.grouped(UserAuthenticator())
+			.grouped(Token.Input.guardMiddleware())
+		let books = protected.grouped("books")
 		books.post(use: create)
 		books.get(use: readAll)
 		books.get(":id", use: read)
@@ -17,7 +19,7 @@ struct BookController: RouteCollection {
 	// MARK: - Helper Functions
 	
 	func getOwnerId(req: Request) throws -> UUID {
-		guard let ownerId = UUID(uuidString: "6F2FE70A-9803-44B1-9766-6115370FBFC5") else {
+		guard let ownerId = UUID(uuidString: "13B5C858-0817-445D-A3B8-7EC7B00BB0CC") else {
 			throw Abort(.badRequest)
 		}
 		return ownerId
