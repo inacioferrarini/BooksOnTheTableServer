@@ -1,9 +1,9 @@
 import Fluent
 
-struct CreateBook: Migration {
+struct CreateBooks: Migration {
 	
 	func prepare(on database: Database) -> EventLoopFuture<Void> {
-		return database.schema("books")
+		return database.schema(Book.schema)
 			.id()
 			.field("title", .string, .required)
 			.field("author_name", .string, .required)

@@ -51,13 +51,23 @@ content-length: 40
 connection: keep-alive
 date: Sat, 03 Apr 2021 11:42:38 GMT
 
-{"name":"User Name","email":"User Name"}
+{"name":"User Name","email":"email@provider.com.br"}
 ```
 
 ## User Authetication
 
 ```shell
+curl -i -X POST "http://127.0.0.1:8080/security/token" \
+		-H "Content-Type: application/json" \
+		-d '{
+			"email":"user@email.com",
+			"password": "1234"
+		}'
 ```
+
+
+
+
 
 ## Creates a Book
 

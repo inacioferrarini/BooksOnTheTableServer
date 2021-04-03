@@ -22,7 +22,7 @@ struct UserController: RouteCollection {
 		return user.save(on: req.db).map {
 			return User.Output(
 				name: user.name,
-				email: user.name
+				email: user.email
 			)
 		}
 	}

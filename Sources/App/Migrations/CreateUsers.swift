@@ -1,9 +1,9 @@
 import Fluent
 
-struct CreateUser: Migration {
+struct CreateUsers: Migration {
 	
 	func prepare(on database: Database) -> EventLoopFuture<Void> {
-		return database.schema("users")
+		return database.schema(User.schema)
 			.id()
 			.field("name", .string, .required)
 			.field("email", .string, .required)
