@@ -22,9 +22,36 @@ swift run Run
 
 # Features
 
-## Creates a new User
+## Creates a User
+
+Creates a new user.
+
+### Parameters
+
+None.
+
+### Request
 
 ```shell
+curl -i -X POST "http://127.0.0.1:8080/users" \
+        -H "Content-Type: application/json" \
+        -d '{
+        	"name" : "User Name",
+        	"email" : "email@provider.com.br",
+	     	"password" : "123123@11acc"
+	     }'
+```
+
+### Success Response
+
+```shell
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 40
+connection: keep-alive
+date: Sat, 03 Apr 2021 11:42:38 GMT
+
+{"name":"User Name","email":"User Name"}
 ```
 
 ## User Authetication
@@ -32,7 +59,7 @@ swift run Run
 ```shell
 ```
 
-## Adds a Book
+## Creates a Book
 
 Creates a new book.
 
@@ -45,11 +72,11 @@ None.
 ```shell
 curl -i -X POST "http://127.0.0.1:8080/books" \
         -H "Content-Type: application/json" \
-        -d '{ \
-        	"title" : "Book Title", \
-        	"author_name" : "Author Name", \
-        	"genre" : "Horror", \
-	     	"status" : "Reading" \
+        -d '{
+        	"title" : "Book Title",
+        	"author_name" : "Author Name",
+        	"genre" : "Horror",
+	     	"status" : "Reading"
 	     }'
 ```
 
@@ -138,10 +165,10 @@ Updates a book.
 curl -i -X PUT "http://127.0.0.1:8080/books/<id>" \
         -H "Content-Type: application/json" \
         -d '{ \
-        	"title" : "Book Title", \
-        	"author_name" : "Author Name", \
-        	"genre" : "Horror", \
-	     	"status" : "Reading" \
+        	"title" : "Book Title",
+        	"author_name" : "Author Name",
+        	"genre" : "Horror",
+	     	"status" : "Reading"
 	     }'
 ```
 

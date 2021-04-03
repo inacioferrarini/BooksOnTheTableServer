@@ -12,7 +12,6 @@ final class User: Model, Content {
 	struct Output: Content {
 		let name: String
 		let email: String
-		let password: String
 	}
 
 	static let schema = "users"

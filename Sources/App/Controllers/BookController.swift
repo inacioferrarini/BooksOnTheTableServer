@@ -1,10 +1,3 @@
-//
-//  BookController.swift
-//  
-//
-//  Created by José Inácio Athayde Ferrarini on 02/04/21.
-//
-
 import Fluent
 import Vapor
 
