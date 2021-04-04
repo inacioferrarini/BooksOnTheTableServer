@@ -17,16 +17,16 @@ final class Token: Model {
 	static let schema = "tokens"
 
 	@ID(key: "id") var id: UUID?
-	@Parent(key: "user_id") var user: User
+	@Parent(key: "user_id") var owner: User
 	@Field(key: "value") var value: String
 	@Field(key: "created_at") var createdAt: Date?
 	@Field(key: "expires_at") var expiresAt: Date?
 
 	init() {}
 
-	init(id: UUID? = nil, userId: User.IDValue, token: String, createdAt: Date?, expiresAt: Date?) {
+	init(id: UUID? = nil, ownerId: User.IDValue, token: String, createdAt: Date?, expiresAt: Date?) {
 		self.id = id
-		self.$user.id = userId
+		self.$owner.id = ownerId
 		self.value = token
 		self.createdAt = createdAt
 		self.expiresAt = expiresAt

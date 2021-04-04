@@ -19,16 +19,8 @@ struct BookController: RouteCollection {
 	// MARK: - Helper Functions
 	
 	func getOwnerId(req: Request) throws -> UUID {
-		
-		let user = try req.auth.require(UserSession.self)
-		print("authenticated User: \(user)")
-		
-//		let user = try req.auth.require(TestUser.self)
-		
-		guard let ownerId = UUID(uuidString: "13B5C858-0817-445D-A3B8-7EC7B00BB0CC") else {
-			throw Abort(.badRequest)
-		}
-		return ownerId
+		let authenticatedUser = try req.auth.require(UserSession.self)
+		return authenticatedUser.userId
 	}
 	
 	// MARK: - Create

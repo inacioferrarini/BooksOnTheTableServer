@@ -20,13 +20,14 @@ struct SecurityController: RouteCollection {
 			.first()
 			.unwrap(or: Abort(.notFound))
 			.mapThrowing { user -> Token.Output in
-				if try Bcrypt.verify(input.password, created: user.password), let userId = user.id {
-					let tokenString = UUID().uuidString //.replacingCharacters(in: "-", with: "")
+				if try Bcrypt.verify(input.password, created: user.password), let ownerId = user.id {
+					// TODO: How to create a random token
+					let tokenString = UUID().uuidString  //.replacingCharacters(in: "-", with: "")
 					print("tokenString: \(tokenString)")
 					let createdAt = Date()
-					let expiresAt = Date().advanced(by: 15*24*60*60*1000)
+					let expiresAt = Date().addingTimeInterval(15*24*60*60) // TODO: Create a constant
 					let token = Token(
-						userId: userId,
+						ownerId: ownerId,
 						token: tokenString,
 						createdAt: createdAt,
 						expiresAt: expiresAt
