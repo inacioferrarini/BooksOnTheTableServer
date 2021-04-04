@@ -8,7 +8,7 @@ struct UserAuthenticator: BearerAuthenticator {
 			.filter(\.$value == bearer.token)
 			.with(\.$owner)
 			.first()
-			.unwrap(or: Abort(.notFound)) // check if it must be a different code
+			.unwrap(or: Abort(.unauthorized)) // check if it must be a different code
 			.mapThrowing { token in
 				guard let userId = token.owner.id else {
 					throw Abort(.badRequest)
