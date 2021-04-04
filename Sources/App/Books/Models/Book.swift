@@ -71,3 +71,14 @@ extension Book.Output {
 	}
 	
 }
+
+extension Book.Input: Validatable {
+
+	static func validations(_ validations: inout Validations) {
+		validations.add("title", as: String.self, is: .count(3...) && .alphanumeric)
+		validations.add("author_name", as: String.self, is: .count(3...) && .alphanumeric)
+		validations.add("genre", as: String.self, is: .in("Horror"))
+		validations.add("status", as: String.self, is: .in("Reading", "Done"))
+	}
+
+}

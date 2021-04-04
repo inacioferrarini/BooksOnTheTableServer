@@ -26,6 +26,7 @@ struct BookController: RouteCollection {
 	// MARK: - Create
 	
 	func create(req: Request) throws -> EventLoopFuture<Book.Output> {
+		try Book.Input.validate(content: req)
 		let ownerId = try getOwnerId(req: req)
 		let input = try req.content.decode(Book.Input.self)
 		let book = Book(ownerId: ownerId,
@@ -92,6 +93,7 @@ struct BookController: RouteCollection {
 	// MARK: - Update
 	
 	func update(req: Request) throws -> EventLoopFuture<Book.Output> {
+		try Book.Input.validate(content: req)
 		guard let id = req.parameters.get("id", as: UUID.self) else {
 			throw Abort(.badRequest)
 		}

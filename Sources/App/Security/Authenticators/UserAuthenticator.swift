@@ -6,9 +6,10 @@ struct UserAuthenticator: BearerAuthenticator {
 	func authenticate(bearer: BearerAuthorization, for request: Request) -> EventLoopFuture<Void> {
 		return Token.query(on: request.db)
 			.filter(\.$value == bearer.token)
+			.filter(\.$expiresAt >= Date())
 			.with(\.$owner)
 			.first()
-			.unwrap(or: Abort(.unauthorized)) // check if it must be a different code
+			.unwrap(or: Abort(.unauthorized))
 			.mapThrowing { token in
 				guard let userId = token.owner.id else {
 					throw Abort(.badRequest)

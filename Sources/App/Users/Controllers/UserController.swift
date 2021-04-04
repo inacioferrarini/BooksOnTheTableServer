@@ -14,6 +14,7 @@ struct UserController: RouteCollection {
 	// MARK: - Create
 	
 	func create(req: Request) throws -> EventLoopFuture<User.Output> {
+		try User.Input.validate(content: req)
 		let input = try req.content.decode(User.Input.self)
 		let user = User(name: input.name,
 						email: input.email,
