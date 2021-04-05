@@ -20,9 +20,17 @@ To start the backend:
 swift run Run
 ```
 
+To open the source code in Xcode
+
+```swift
+vapor xcode
+```
+
+To run the project in Xcode, using the correct **Data Path**, update the Schema, set the ***Working Directory*** to the folder where the *Package.swift* file is located.
+
 # Features
 
-## Creates a User
+## Creates a User (POST)
 
 Creates a new user.
 
@@ -83,7 +91,7 @@ date: Sat, 03 Apr 2021 11:42:38 GMT
 | 400 | password is required | password property is absent |
 | 400 | password is less than minimum of 8 character(s) | password property value is too short |
 
-## User Authetication
+## User Authetication (POST)
 
 Request a Bearer token.
 
@@ -109,7 +117,7 @@ curl -i -X POST "http://127.0.0.1:8080/security/token" \
 		-H "Content-Type: application/json" \
 		-d '{
 			"email":"user@email.com",
-			"password": "1234"
+			"password": "12345678"
 		}'
 ```
 
@@ -137,7 +145,7 @@ date: Sun, 04 Apr 2021 14:16:09 GMT
 | 400 | password is required | password property is absent |
 | 400 | password is less than minimum of 8 character(s) | password property value is too short |
 
-## Creates a Book
+## Creates a Book (POST)
 
 Creates a new book.
 
@@ -207,7 +215,7 @@ date: Fri, 02 Apr 2021 22:22:44 GMT
 | 400 | status is required | status property is absent |
 | 400 | status is not Reading or Done | status must be 'Reading' or 'Done' |
 
-## Fetch All Books
+## Fetch All Books (GET)
 
 Fetchs all books. Supports pagination.
 
@@ -259,7 +267,7 @@ date: Fri, 02 Apr 2021 22:43:41 GMT
 | 400 | Value of type 'Int' required for key 'per' | per parameter value must be an Int. |
 
 
-## Fetch a Specific Book
+## Fetch a Specific Book (GET)
 
 Fetches a book by id.
 
@@ -308,7 +316,7 @@ date: Fri, 02 Apr 2021 22:51:15 GMT
 | | | |
 | 404 | Not Found | A Book with given ID was not found on database. |
 
-## Update a Book
+## Update a Book (PUT)
 
 Updates a book.
 
@@ -382,7 +390,7 @@ date: Fri, 02 Apr 2021 23:05:15 GMT
 | 400 | status is required | status property is absent |
 | 400 | status is not Reading or Done | status must be 'Reading' or 'Done' |
 
-## Delete a Book
+## Delete a Book (DELETE)
 
 Deletes a book.
 
