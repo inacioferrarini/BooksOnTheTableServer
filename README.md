@@ -6,23 +6,29 @@ This back-end uses is made in **Swift** and **Vapor**.
 
 Data is persistend using a SQLite database through **Fluent ORM**.
 
-## Como utilizar o backend
+## How to Use the Back End
+
+To Install Vapor Toolbox:
+
+```shell
+brew install vapor
+```
 
 To prepare the database:
 
-```swift
+```shell
 swift run Run migrate
 ```
 
 To start the backend:
 
-```swift
+```shell
 swift run Run
 ```
 
 To open the source code in Xcode
 
-```swift
+```shell
 vapor xcode
 ```
 
