@@ -170,7 +170,7 @@ None.
 | Parameter | Description |
 | ---------------  | --------------- |
 | title | String |
-| author_name | String |
+| author | String |
 | genre | "Horror" |
 | status | "Reading", "Done" |
 
@@ -182,7 +182,7 @@ curl -i -X POST "http://127.0.0.1:8080/books" \
 	-H "Authorization: Bearer {token}" \
     -d '{
     	"title" : "Book Title",
-    	"author_name" : "Author Name",
+    	"author" : "Author Name",
     	"genre" : "Horror",
      	"status" : "Reading"
      }'
@@ -197,7 +197,7 @@ content-length: 130
 connection: keep-alive
 date: Fri, 02 Apr 2021 22:22:44 GMT
 
-{"author_name":"Author Name","id":"EAEF0D7C-E537-4114-BA61-5F7517AB4AFA","title":"Book Title","status":"Reading","genre":"Horror"}
+{"author":"Author Name","id":"EAEF0D7C-E537-4114-BA61-5F7517AB4AFA","title":"Book Title","status":"Reading","genre":"Horror"}
 ```
 
 ### Error Responses
@@ -212,8 +212,8 @@ date: Fri, 02 Apr 2021 22:22:44 GMT
 | 400 | title is required | title property is absent |
 | 400 | title is less than minimum of 3 character(s) | title property value is too short |
 | | | |
-| 400 | author_name is required | author_name property is absent |
-| 400 | author_name is not a valid email address | author_name property value is invalid |
+| 400 | author is required | author property is absent |
+| 400 | author is not a valid email address | author property value is invalid |
 | | | |
 | 400 | genre is required | genre property is absent |
 | 400 | genre is not Horror | genre must be 'Horror' |
@@ -258,7 +258,7 @@ content-length: 314
 connection: keep-alive
 date: Fri, 02 Apr 2021 22:43:41 GMT
 
-{"items":[{"author_name":"Author Name","id":"EAEF0D7C-E537-4114-BA61-5F7517AB4AFA","title":"Book Title","status":"Reading","genre":"Horror"},{"author_name":"Author Name","id":"4E4852C1-5D8C-40B4-B0A8-58FC9827E5FE","title":"Other Book","status":"Reading","genre":"Horror"}],"metadata":{"per":20,"total":2,"page":0}}
+{"items":[{"author":"Author Name","id":"EAEF0D7C-E537-4114-BA61-5F7517AB4AFA","title":"Book Title","status":"Reading","genre":"Horror"},{"author":"Author Name","id":"4E4852C1-5D8C-40B4-B0A8-58FC9827E5FE","title":"Other Book","status":"Reading","genre":"Horror"}],"metadata":{"per":20,"total":2,"page":0}}
 ```
 
 ### Error Responses
@@ -308,7 +308,7 @@ content-length: 130
 connection: keep-alive
 date: Fri, 02 Apr 2021 22:51:15 GMT
 
-{"author_name":"Author Name","id":"EAEF0D7C-E537-4114-BA61-5F7517AB4AFA","title":"Book Title","status":"Reading","genre":"Horror"}
+{"author":"Author Name","id":"EAEF0D7C-E537-4114-BA61-5F7517AB4AFA","title":"Book Title","status":"Reading","genre":"Horror"}
 ```
 
 ### Error Responses
@@ -341,7 +341,7 @@ Updates a book.
 | Parameter | Description |
 | ---------------  | --------------- |
 | title | String |
-| author_name | String |
+| author | String |
 | genre | "Horror" |
 | status | "Reading", "Done" |
 
@@ -353,7 +353,7 @@ curl -i -X PUT "http://127.0.0.1:8080/books/<id>" \
 	-H "Authorization: Bearer {token}" \
         -d '{
         	"title" : "Book Title",
-        	"author_name" : "Author Name",
+        	"author" : "Author Name",
         	"genre" : "Horror",
 	     	"status" : "Reading"
 	     }'
@@ -368,7 +368,7 @@ content-length: 143
 connection: keep-alive
 date: Fri, 02 Apr 2021 23:05:15 GMT
 
-{"author_name":"Updated Author Name","id":"EAEF0D7C-E537-4114-BA61-5F7517AB4AFA","title":"Updated Book Title","status":"Done","genre":"Horror"}
+{"author":"Updated Author Name","id":"EAEF0D7C-E537-4114-BA61-5F7517AB4AFA","title":"Updated Book Title","status":"Done","genre":"Horror"}
 ```
 
 ### Error Responses
@@ -387,8 +387,8 @@ date: Fri, 02 Apr 2021 23:05:15 GMT
 | 400 | title is required | title property is absent |
 | 400 | title is less than minimum of 3 character(s) | title property value is too short |
 | | | |
-| 400 | author_name is required | author_name property is absent |
-| 400 | author_name is not a valid email address | author_name property value is invalid |
+| 400 | author is required | author property is absent |
+| 400 | author is not a valid email address | author property value is invalid |
 | | | |
 | 400 | genre is required | genre property is absent |
 | 400 | genre is not Horror | genre must be 'Horror' |
