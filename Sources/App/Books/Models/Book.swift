@@ -3,11 +3,12 @@ import Vapor
 
 final class Book: Model, Content {
 	
-	enum Genre: String, Codable {
+	enum Genre: String, Codable, CaseIterable {
 		case horror = "Horror"
 	}
 	
-	enum Status: String, Codable {
+	enum Status: String, Codable, CaseIterable {
+		case pending = "Pending"
 		case reading = "Reading"
 		case done = "Done"
 	}
@@ -78,7 +79,7 @@ extension Book.Input: Validatable {
 		validations.add("title", as: String.self, is: .count(5...))
 		validations.add("author", as: String.self, is: .count(5...))
 		validations.add("genre", as: String.self, is: .in("Horror"))
-		validations.add("status", as: String.self, is: .in("Reading", "Done"))
+		validations.add("status", as: String.self, is: .in("Pending", "Reading", "Done"))
 	}
 
 }

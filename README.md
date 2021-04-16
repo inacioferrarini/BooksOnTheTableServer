@@ -172,7 +172,7 @@ None.
 | title | String |
 | author | String |
 | genre | "Horror" |
-| status | "Reading", "Done" |
+| status | "Pending", "Reading", "Done" |
 
 ### Request Example
 
